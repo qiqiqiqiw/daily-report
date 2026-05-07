@@ -107,50 +107,51 @@ body {
     margin: 0 0 16px 0;
 }
 
-.form-group input[type="password"] {
+.password-input-row {
+    position: relative;
+    display: block;
+}
+
+.password-input-row input {
     width: 100%;
-    padding: 10px 12px;
+    padding: 10px 40px 10px 12px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 14px;
     transition: border-color 0.2s;
+    box-sizing: border-box;
 }
 
-.form-group input[type="password"]:focus {
+.password-input-row input:focus {
     outline: none;
     border-color: #4361ee;
     box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
 }
 
-.password-input-row {
-    position: relative;
-}
-
-.password-input-row input {
-    width: 100%;
-    padding-right: 40px;
-}
-
 .btn-toggle-eye {
     position: absolute;
-    right: 2px;
-    top: 0;
-    bottom: 0;
-    width: 36px;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    line-height: 1;
-    opacity: 0.45;
-    transition: opacity 0.2s;
+    padding: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #999;
+    transition: color 0.2s;
 }
 
 .btn-toggle-eye:hover {
-    opacity: 0.9;
+    color: #333;
+}
+
+.btn-toggle-eye svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
 }
 
 .btn-small {

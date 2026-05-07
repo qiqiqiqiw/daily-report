@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Daily Report</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Git Daily Report</h1>
+        <div class="header-actions">
+            <select id="repoSelector" class="repo-select">
+                <option value="">请选择仓库</option>
+            </select>
+            <button id="btnAddRepo" class="btn btn-primary">+ 添加仓库</button>
+            <button id="btnSettings" class="btn btn-outline">设置</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div id="calendar"></div>
+    </main>
+
+    <!-- 日报 Modal -->
+    <div id="reportModal" class="modal" style="display:none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalDateTitle"></h2>
+                <div class="modal-actions">
+                    <button id="btnGenerateReport" class="btn btn-small btn-primary">生成</button>
+                    <button class="modal-close" id="btnCloseReport">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="reportEditor">
+                    <div class="edit-group">
+                        <label>📋 今日完成</label>
+                        <textarea id="editCompleted" rows="4" placeholder="今日完成的工作..."></textarea>
+                    </div>
+                    <div class="edit-group">
+                        <label>🔄 进行中</label>
+                        <textarea id="editInProgress" rows="3" placeholder="进行中的工作..."></textarea>
+                    </div>
+                    <div class="edit-group">
+                        <label>📝 备注</label>
+                        <textarea id="editNotes" rows="3" placeholder="备注、风险项..."></textarea>
+                    </div>
+                </div>
+                <div id="reportEmpty" style="display:none;">
+                    <p class="empty-hint">暂无日报，点击[生成]按钮创建</p>
+                </div>
+                <div id="loadingSpinner" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>正在生成日报...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCopyReport" class="btn btn-outline">复制</button>
+                <button id="btnDeleteReport" class="btn btn-danger" style="display:none;">删除</button>
+                <button id="btnSaveReport" class="btn btn-primary">保存</button>
+                <button id="btnCloseReportFooter" class="btn btn-outline">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加仓库 Modal -->
+    <div id="repoModal" class="modal" style="display:none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>添加 Git 仓库</h2>
+                <button class="modal-close" id="btnCloseRepo">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>本地 Git 仓库路径</label>
+                    <div class="path-input-row">
+                        <input type="text" id="inputRepoPath" placeholder="例如: D:/code/my-project">
+                        <button id="btnPickFolder" class="btn btn-outline btn-small" type="button">浏览</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnConfirmAddRepo" class="btn btn-primary">添加</button>
+                <button id="btnCancelAddRepo" class="btn btn-outline">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置 Modal -->
+    <div id="settingsModal" class="modal" style="display:none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>设置</h2>
+                <button class="modal-close" id="btnCloseSettings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>默认仓库</label>
+                    <select id="inputDefaultRepo" class="form-select"></select>
+                </div>
+                <div class="form-group">
+                    <label>自动生成日报</label>
+                    <label class="toggle">
+                        <input type="checkbox" id="inputAutoGenerate">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>生成时间</label>
+                    <input type="time" id="inputCronTime" value="18:00">
+                </div>
+                <hr class="settings-divider">
+                <h3 class="settings-section-title">AI 模型配置</h3>
+                <div class="form-group">
+                    <label>API 地址</label>
+                    <input type="text" id="inputAiApiUrl" placeholder="例如: https://api.openai.com">
+                </div>
+                <div class="form-group">
+                    <label>API 密钥</label>
+                    <input type="password" id="inputAiApiKey" placeholder="sk-...">
+                </div>
+                <div class="form-group">
+                    <label>模型名称</label>
+                    <input type="text" id="inputAiModelName" placeholder="例如: gpt-4o-mini">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSaveSettings" class="btn btn-primary">保存</button>
+                <button id="btnCancelSettings" class="btn btn-outline">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 通知 -->
+    <div id="toast" class="toast" style="display:none;"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -44,6 +44,7 @@ const App = {
         document.getElementById('settingsModal').querySelector('.modal-overlay').addEventListener('click', () => this.closeModal('settingsModal'));
         document.getElementById('btnSaveSettings').addEventListener('click', () => this.saveSettings());
         document.getElementById('btnCancelSettings').addEventListener('click', () => this.closeModal('settingsModal'));
+        document.getElementById('btnToggleApiKey').addEventListener('click', () => this.toggleApiKeyVisibility());
 
         // 监听日历翻页
         document.addEventListener('click', (e) => {
@@ -317,6 +318,18 @@ const App = {
     },
 
     // === UI Helpers ===
+
+    toggleApiKeyVisibility() {
+        const input = document.getElementById('inputAiApiKey');
+        const btn = document.getElementById('btnToggleApiKey');
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.innerHTML = '&#128064;';  // closed eye
+        } else {
+            input.type = 'password';
+            btn.innerHTML = '&#128065;';  // open eye
+        }
+    },
 
     showModal(id) {
         document.getElementById(id).style.display = 'flex';
